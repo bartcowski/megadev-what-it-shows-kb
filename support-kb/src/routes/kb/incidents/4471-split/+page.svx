@@ -21,7 +21,7 @@ pages overlap; one id is one report). The merge was made on the subject line
 three different problems.
 
 <Callout>
-One fix will not close this ticket. Fixing the parser leaves 38 reports unexplained.
+One fix will not close this ticket. Fixing the parser leaves 33 reports unexplained.
 </Callout>
 
 ## What is in it
@@ -30,12 +30,12 @@ One fix will not close this ticket. Fixing the parser leaves 38 reports unexplai
 
 | # | Problem | Reports | Fix belongs to |
 |---|---|---|---|
-| 1 | `parser` reads every date month first; day-first tenants get flipped dates | 374 | shared date parser |
+| 1 | `parser` reads every date month first; day-first tenants get flipped dates | 379 | shared date parser |
 | 2 | `hint`: the `booking-v3` form prints `MM/DD/YYYY`, so people at day-first tenants (`alder.physio`, `copper.studio`, `pale.harbour`) type month first | 33 | booking-v3 form hint |
 | 3 | One-day shift: a date lands a day off, not a month flip (desk notes `oneDayMove`: R-41202, R-41209, R-41236, R-41344, R-41620) | 5 | timezone / day boundary, to investigate |
 
-374 + 33 + 5 = 412. The table above counts the five one-day reports under `parser`, because it
-places reports by tenant. Their text does not fit a month/day swap, so they get their own ticket.
+379 + 33 = 412, the desk view. It counts the five one-day reports under `parser`, because it
+places reports by tenant. Their text does not fit a month/day swap, so they also get their own ticket (5, already inside the 379).
 
 ## Why the first merge hid this
 
