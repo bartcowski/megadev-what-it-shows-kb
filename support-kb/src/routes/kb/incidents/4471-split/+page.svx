@@ -1,0 +1,50 @@
+---
+layout: runbook
+title: '#4471 is three problems, not one'
+owner: support desk
+status: proposed
+reviewed: 2026-11-01
+signature: v1.eyJzdWIiOiI2NDcwIiwiYXVkIjoiY2hhbGxlbmdlOndoYXQtaXQtc2hvd3MiLCJpYXQiOjE3OTM1NTYyODEsImV4cCI6MTc5MzY0MjY4MX0.g8M5HFL-uLz2VKz8Oh5pTk6TnHEIHy8v_XbtO_kM1Q0
+---
+
+<script>
+  import CauseTable from '#lib/kb/CauseTable.svelte';
+  import Callout from '#lib/kb/Callout.svelte';
+  import RenderStamp from '#lib/kb/RenderStamp.svelte';
+
+  const signature = 'v1.eyJzdWIiOiI2NDcwIiwiYXVkIjoiY2hhbGxlbmdlOndoYXQtaXQtc2hvd3MiLCJpYXQiOjE3OTM1NTYyODEsImV4cCI6MTc5MzY0MjY4MX0.g8M5HFL-uLz2VKz8Oh5pTk6TnHEIHy8v_XbtO_kM1Q0';
+</script>
+
+[#4471](/kb/incidents/4471) merged **412 unique reports** (the export lists 427 rows because its
+pages overlap; one id is one report). The merge was made on the subject line
+([decision 0001](/kb/decisions/0001-dedupe-by-subject)). Read by cause, the reports hold
+three different problems.
+
+<Callout>
+One fix will not close this ticket. Fixing the parser leaves 38 reports unexplained.
+</Callout>
+
+## What is in it
+
+<CauseTable ticket={4471} />
+
+| # | Problem | Reports | Fix belongs to |
+|---|---|---|---|
+| 1 | `parser` reads every date month first; day-first tenants get flipped dates | 374 | shared date parser |
+| 2 | `hint`: the `booking-v3` form prints `MM/DD/YYYY`, so people at day-first tenants (`alder.physio`, `copper.studio`, `pale.harbour`) type month first | 33 | booking-v3 form hint |
+| 3 | One-day shift: a date lands a day off, not a month flip (desk notes `oneDayMove`: R-41202, R-41209, R-41236, R-41344, R-41620) | 5 | timezone / day boundary, to investigate |
+
+374 + 33 + 5 = 412. The table above counts the five one-day reports under `parser`, because it
+places reports by tenant. Their text does not fit a month/day swap, so they get their own ticket.
+
+## Why the first merge hid this
+
+Intake tags a report from the reporter's browser. The cause depends on the tenant: where they
+are and which booking form they run. Matching on subject cannot see either.
+
+## Next
+
+- One ticket per problem, each with its report count.
+- Re-read the five one-day reports before closing the third ticket.
+
+<RenderStamp {signature} />
